@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>New Project</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/page1.css') }}">
+</head>
+<body>
+  <header>
+    <div class="header-left">
+      <h1 class="logo" onclick="location.href='/'">Venture Capital</h1>
+    </div>
+    <nav class="header-right">
+      <a href="#" id="btnExportPdf" class="header-link">PDF로 저장</a>
+    </nav>
+  </header>
+  
+  <main id="mainContainer">
+    <!-- 새 프로젝트의 시작 공간 -->
+    <section class="report-box">
+      <!-- 오른쪽 맨 위에 위치할 삭제 버튼 -->
+      <button class="delete-btn">삭제</button>
+
+      <div class="company-input">
+        <input type="text" class="corp-input" placeholder="회사명을 입력하세요 (예: 삼성전자)">
+        <button class="confirm-btn">확인</button>
+        <!-- 자동완성 리스트를 위한 컨테이너 -->
+        <div class="suggestion-list"></div>
+      </div>
+
+      <!-- 전체 레이아웃: Summary + Table + Chart -->
+      <!-- 전체 보고서 레이아웃 -->
+      <div class="report-content">
+
+        <!-- ✅ ① Summary 섹션 -->
+        <section class="report-section summary-section">
+          <h2>Summary</h2>
+          <div class="content">
+            <!-- Summary 내용 -->
+            <table class="summary-table">
+              <tbody>
+                <tr>
+                  <th>NO.</th>
+                  <td class="summary-no">-</td>
+                </tr>
+                <tr>
+                  <th>회사명</th>
+                  <td class="summary-name">-</td>
+                </tr>
+                <tr>
+                  <th>상장여부</th>
+                  <td class="summary-listing">-</td>
+                </tr>
+                <tr>
+                  <th>시가총액</th>
+                  <td class="summary-marketcap">-</td>
+                </tr>
+                <tr>
+                  <th>매출액</th>
+                  <td class="summary-sales">-</td>
+                </tr>
+                <tr>
+                  <th>EBITDA</th>
+                  <td class="summary-ebitda">-</td>
+                </tr>
+                <tr>
+                  <th>PER</th>
+                  <td class="summary-per">-</td>
+                </tr>
+                <tr>
+                  <th>EV/EBITDA</th>
+                  <td class="summary-ev_evita">-</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      
+        <!-- ✅ ② 재무 테이블 섹션 -->
+        <section class="report-section table-section">
+          <div class="result-table-wrapper">
+            <h2>Table</h2>
+          </div>
+        </section>
+      
+        <!-- ✅ ③ 차트 영역 섹터 (3등분) -->
+        <section class="report-section chart-section">
+          <h2>Charts</h2>
+          <div class="chart-grid">
+
+            <!-- 1번 칸: 매출액+EBIT/매출액 차트 + 지표 요약 -->
+            <div class="chart-cell chart-sales-cell">
+              <div class="metrics-summary">
+                <div class="metric-item">
+                  <span class="label">Market&nbsp;Cap</span>
+                  <span class="value metric-marketcap">-</span>
+                  <span class="unit">억&nbsp;원</span>
+                </div>
+                <div class="metric-item">
+                  <span class="label">PER</span>
+                  <span class="value metric-per">-</span>
+                  <span class="unit">배</span>
+                </div>
+                <div class="metric-item">
+                  <span class="label">EV</span>
+                  <span class="value metric-ev">-</span>
+                  <span class="unit">억&nbsp;원</span>
+                </div>
+                <div class="metric-item">
+                  <span class="label">EV/EBITDA</span>
+                  <span class="value metric-ev_ebitda">-</span>
+                  <span class="unit">배</span>
+                </div>
+              </div>              
+              <canvas id="chart-sales"></canvas>
+            </div>
+
+            <!-- 2번 칸: 현금흐름 분석 차트 + 설명 입력 -->
+            <div class="chart-cell chart-cashflow-cell">
+              <canvas id="chart-cashflow"></canvas>
+              <textarea class="cashflow-comment" placeholder="현금흐름 설명을 입력하세요"></textarea>
+            </div>
+
+            <!-- 3번 칸: (a) 현금성자산 차트, (b) 자산·부채·부채비율 차트 -->
+            <div class="chart-cell chart-assets-cell">
+              <div class="subcharts">
+                <div class="subchart left">
+                  <canvas id="chart-cash-assets"></canvas>
+                </div>
+                <div class="subchart right">
+                  <canvas id="chart-assets-liabilities"></canvas>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+      
+        <!-- ✅ ④ 수기 입력 섹션 -->
+        <section class="report-section input-section">
+          <h2>Manual Input</h2>
+          <div class="content">
+            <textarea class="normal-comment" placeholder="수기 입력 내용을 여기에 작성하세요"></textarea>
+          </div>
+        </section>
+      
+      </div>
+          
+    </section>
+
+      <!-- 박스 하단에 위치할 추가 버튼 -->
+      <button class="add-btn">박스 추가</button>
+
+  </main>
+
+  <footer>  
+    <p>&copy; 2025 Venture Capital Project. All rights reserved.</p>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/page1.js') }}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- ▸ HTML → image 변환 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <!-- ▸ PDF 생성 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</body>
+</html>
