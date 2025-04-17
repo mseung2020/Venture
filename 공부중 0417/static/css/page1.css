@@ -1,0 +1,374 @@
+/* ========== 공통 변수 ========== */
+:root {
+  --primary-color: #274c77;
+  --secondary-color: #f9f9f9;
+  --text-color: #666;
+  --white: #ffffff;
+  --box-radius: 5px;
+  --padding-base: 20px;
+  --font-family: Arial, sans-serif;
+}
+
+/* Paperlogy */
+@font-face {
+  font-family: 'Paperlogy';
+  src: url('../fonts/Paperlogy.ttf') format('truetype');
+  font-style: normal;
+}
+
+/* Tenada */
+@font-face {
+  font-family: 'Tenada';
+  src: url('../fonts/Tenada.ttf') format('truetype');
+  font-style: normal;
+}
+
+/* 기본 스타일 */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-family);
+  background-color: var(--secondary-color);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* 헤더 스타일 */
+header {
+  background-color: var(--primary-color);
+  color: var(--white);
+  padding: var(--padding-base);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 2rem;
+  font-family: 'Paperlogy';
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  cursor: pointer;
+  font-size: 1.5rem;
+  margin: 0;
+  margin-left: 0.5rem;
+  margin-top: 0.5rem;
+  font-family: 'Tenada';
+}
+
+.header-right .header-link {
+  color: var(--white);
+  margin-left: 2rem;
+  margin-right: 0.5rem;
+  text-decoration: none;
+}
+
+/* 박스 스타일 */
+.box {
+  background-color: var(--white);
+  border-radius: var(--box-radius);
+  padding: var(--padding-base);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  position: relative; 
+}
+
+/* 삭제 버튼: 박스 오른쪽 맨 위 */
+.delete-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  cursor: pointer;
+  z-index: 50;
+}
+
+/* 추가 버튼: 박스 아래쪽 (오른쪽 정렬 예시) */
+.add-btn {
+  display: block;
+  width: calc(100% - 40px);  /* 메인 패딩 20px씩 반영 */
+  margin: 20px auto;         /* 위아래 간격과 중앙 정렬 */
+  padding: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+/* 메인 컨텐츠 */
+main {
+  padding: 20px;
+}
+
+/* 보고서 박스 스타일 */
+.report-box {
+  position: relative;
+  background: #fff;
+  border-radius: 5px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  margin-bottom: 30px; 
+  width: auto;
+}
+
+/* 회사명 입력란 스타일 */
+.company-input {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  position: relative; /* 추가 */
+}
+
+.company-input input {
+  width: 300px;
+  padding: 10px;
+  font-size: 1rem;
+  margin-right: 10px;
+  position: relative; /* 추가 */
+}
+
+.company-input button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+/* 자동완성 리스트 컨테이너 */
+.suggestion-list {
+  border: 1px solid #ccc;
+  max-height: 200px;
+  overflow-y: auto;
+  background: #fff;
+  position: absolute;
+  top: 50px;       /* 입력창 높이에 맞춰 조절 */
+  left: 50%;       /* 부모의 왼쪽 기준 */
+  transform: translateX(-63%);
+  width: 320px;    /* input과 동일한 너비 */
+  z-index: 1000;
+  display: none;  /* 기본은 숨김 */
+}
+
+/* 각 자동완성 항목 스타일 */
+.suggestion-list div {
+  padding: 5px;
+  cursor: pointer;
+}
+
+/* 마우스 호버 시 배경색 변경 */
+.suggestion-list div.active,
+.suggestion-list div:hover {
+  background-color: #f0f0f0;
+}
+
+/* 보고서 컨텐츠: 4개 섹션을 가로로 배치 */
+.report-content {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;          /* 가로 스크롤 생성 */
+  padding-bottom: 10px;       /* 스크롤바 공간 고려 */
+  align-items: stretch;       /* 모든 섹션을 동일 높이로 맞춤 */
+}
+
+/* 개별 섹션 스타일 */
+.report-section {
+  flex: 0 0 300px;           /* 각 섹션의 고정 너비 (필요에 따라 조정) */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;    /* 내부 콘텐츠를 수직으로 배치 */
+  padding: 10px;
+}
+
+.report-section.table-section {
+  flex: 0 0 auto;
+  width: max-content;
+  min-width: 300px;  /* (B) 어떤 상황에서도 500px 이하로 줄지 않음 */
+  font-size: 10px;
+}
+
+
+/* 섹션 헤더 */
+.report-section h2 {
+  text-align: center;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 5px;
+}
+
+.report-section table-section h2 {
+  text-align: center;
+  font-size: 1.2rem;
+  margin-bottom: 0px;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 5px;
+}
+
+/* 섹션 콘텐츠 영역: 남은 영역을 채우도록 설정 */
+.report-section .content {
+  flex: 1;
+
+}
+
+/* 테이블 기본 스타일 */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table th,
+table td {
+  padding: 8px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.result-table {
+  width: auto;          /* 또는 fit-content (지원 여부에 따라 다름) */
+  table-layout: auto;   /* 내용에 따라 각 셀 너비가 유동적으로 변하도록 함 */
+  margin-top: 0;
+}
+
+.result-table th,
+.result-table td {
+  white-space: nowrap;  /* 줄바꿈을 막는다 */
+  padding: 10px;        /* 여백을 적당히 줘서 붙지 않게 */
+  line-height: 0.5;  /* 필요하면 줄 높이도 조절 */
+}
+
+.report-section.chart-section {
+  /* 요약·테이블은 300px 고정, 차트만 가변 */
+  flex: 1 1 0;      /* 남는 공간 모두 가져가기 */
+  width: 0;    /* 차트 3칸 + gap 만큼 확보 */
+  min-width: 0;
+}
+.report-section.chart-section.loaded{
+  flex: 1 0 auto;
+  width: max-content;  /* 내용(3칸+gap)만큼 확보 */
+  min-width: 900px;    /* 원하는 최소 폭(값은 취향에 맞춰 조정) */
+}
+.report-content.not-loaded{
+  display:none;
+}
+/* 차트 그리드: 3등분 */
+.chart-section .chart-grid {
+  display: flex;
+  gap: 20px;
+}
+
+/* 각 칸 스타일 */
+.chart-section .chart-cell {
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 5px;
+  flex: 1 1 0;
+  display: flex;
+  visibility: hidden;
+  flex-direction: column;
+  align-items:stretch;
+}
+.chart-section.loaded .chart-cell{
+  visibility: visible;          /* 우리가 쓰던 flex 레이아웃 그대로 복원 */
+}
+
+.chart-section .chart-cell canvas{
+  max-height: 300px;        /* 브라우저에 맞춰 조정: 280~350px 등 */
+}
+.chart-sales-cell .metrics-summary{
+  display:flex;               /* 가로 → 세로 */
+  flex-direction:column;
+  align-items:flex-start;     /* 왼쪽 정렬 */
+  gap:3px;                    /* 항목 간 간격 */
+  margin-bottom:5px;         /* ▶ 지표와 차트 사이 여백 */
+}
+.chart-sales-cell .metrics-summary div{
+  width:100%;
+  text-align:left;            /* 문장형 표시가 자연스럽게 */
+  font-weight:bold;           /* (선택) 강조 */
+}
+.chart-sales-cell canvas{
+  flex:1 1 0;
+  height:100%;
+}
+
+
+.metric-item{
+  display:flex;
+  justify-content:flex-start;
+  gap:6px;
+  font-size:.95rem;
+}
+.metric-item .label{
+  width:110px;            /* 라벨 폭 통일해 줄 세로 정렬 */
+  font-weight:500;
+}
+.metric-item .value{
+  font-weight:700;        /* 숫자 강조 */
+}
+.metric-item .unit{
+  color:#888;
+}
+
+
+/* 2번 칸: 차트 아래 수기 입력 */
+.chart-cashflow-cell{
+  display:flex;
+  flex-direction:column;
+}
+.chart-cashflow-cell canvas {
+  flex: 1 1 0;
+  height:100%;
+}
+.cashflow-comment {
+  height: 200px;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 3px; 
+  margin-top: 10px;
+  margin-right: 2px;
+  height: 80px!important;
+  resize: none;
+  max-width:100%!important;
+}
+
+/* 3번 칸: 두 개 차트 세로 배치 또는 가로 비교 */
+.chart-assets-cell .subcharts {
+  display: flex;
+  flex-direction:column;
+  gap: 10px;
+  flex: 1 1 0;
+}
+.chart-assets-cell .subchart canvas{
+  flex:1 1 0;
+  height:100%;
+}
+.subchart {
+  flex: 1 1 0;
+}
+
+
+/* textarea 스타일 */
+.normal-comment {
+  width: 93%;
+  height: 93%;
+  max-width: 100%;
+  max-height: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 3px; 
+}
+
+/* 푸터 스타일 */
+footer {
+  background-color: var(--primary-color);
+  color: var(--white);
+  text-align: center;
+  padding: var(--padding-base);
+  font-size: 0.9rem;
+  height: 2rem;
+}
